@@ -1,4 +1,4 @@
-apiVersion: core.openfunction.io/v1beta1
+apiVersion: core.openfunction.io/v1beta2
 kind: Function
 metadata:
   name: function-sample
@@ -7,12 +7,13 @@ spec:
   image: "openfunctiondev/sample-go-multi-func:latest"
   imageCredentials:
     name: push-secret
-  port: 8080 # default to 8080
   build:
     builder: openfunction/builder-go:latest
     env:
       FUNC_NAME: "MultipleFunctions"
       FUNC_CLEAR_SOURCE: "true"
+#     # Use FUNC_GOPROXY to set the goproxy if failed to fetch go modules
+#     FUNC_GOPROXY: "https://goproxy.cn"
     srcRepo:
       url: "https://github.com/OpenFunction/samples.git"
       sourceSubPath: "functions/knative/multiple-functions-go"
@@ -22,4 +23,6 @@ spec:
       containers:
         - name: function
           imagePullPolicy: Always
-    runtime: "knative"
+    triggers:
+      http:
+        port: 8080
