@@ -1,39 +1,38 @@
-apiVersion: core.openfunction.io/v1beta1
+apiVersion: core.openfunction.io/v1beta2
 kind: Function
 metadata:
   name: function-front
-  annotations:
-    plugins: |
-      pre:
-      - plugin-custom
-      - plugin-example
-      post:
-      - plugin-custom
-      - plugin-example
 spec:
   version: "v1.0.0"
   image: "sachinparihar/sample-knative-dapr:v1"
   imageCredentials:
     name: push-secret
-  port: 8080 # default to 8080
   build:
     builder: openfunction/builder-go:latest
     env:
       FUNC_NAME: "ForwardToKafka"
       FUNC_CLEAR_SOURCE: "true"
+#     # Use FUNC_GOPROXY to set the goproxy if failed to fetch go modules
+#     FUNC_GOPROXY: "https://goproxy.cn"
     srcRepo:
       url: "https://github.com/OpenFunction/samples.git"
       sourceSubPath: "functions/knative/with-output-binding"
       revision: "main"
   serving:
+    hooks:
+      post:
+        - plugin-example
+        - plugin-custom
+      pre:
+        - plugin-custom
+        - plugin-example
     scaleOptions:
       minReplicas: 0
       maxReplicas: 5
-    runtime: knative
     outputs:
-      - name: target
-        component: kafka-server
-        operation: "create"
+      - dapr:
+          name: kafka-server
+          operation: "create"
     bindings:
       kafka-server:
         type: bindings.kafka
@@ -52,4 +51,7 @@ spec:
     template:
       containers:
         - name: function # DO NOT change this
-          imagePullPolicy: IfNotPresent 
+          imagePullPolicy: IfNotPresent
+    triggers:
+      http:
+        port: 8080
