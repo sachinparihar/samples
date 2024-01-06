@@ -15,7 +15,7 @@ spec:
       revision: main
       sourceSubPath: functions/async/bindings/kafka-input
       url: https://github.com/OpenFunction/samples.git
-  image: openfunctiondev/kafka-input:v1
+  image: sachinparihar/kafka-input:v1
   imageCredentials:
     name: push-secret
   serving:
