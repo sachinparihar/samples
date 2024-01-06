@@ -19,7 +19,7 @@ spec:
     srcRepo:
       revision: main
       sourceSubPath: functions/async/logs-handler-function/
-      url: https://github.com/OpenFunction/samples.git
+      url: https://github.com/sachinparihar/samples.git
   image: sachinparihar/logs-async-handler:v1
   imageCredentials:
     name: push-secret

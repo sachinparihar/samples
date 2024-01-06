@@ -15,7 +15,7 @@ spec:
       revision: main
       sourceSubPath: functions/async/bindings/cron-input
       url: https://github.com/OpenFunction/samples.git
-  image: openfunctiondev/cron-input:v1
+  image: sachinparihar/cron-input:v1
   imageCredentials:
     name: push-secret
   serving:

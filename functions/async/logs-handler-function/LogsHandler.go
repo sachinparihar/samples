@@ -14,8 +14,8 @@ import (
 
 const (
 	HTTPCodeNotFound = "404"
-	Namespace        = "demo-project"
-	PodName          = "wordpress-v1-[A-Za-z0-9]{5,15}-[A-Za-z0-9]{3,10}"
+	Namespace        = "default"
+	PodName          = "wordpress-7867b7f788-7w6g9"
 	AlertName        = "404 Request"
 	Severity         = "warning"
 )
