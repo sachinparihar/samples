@@ -63,3 +63,16 @@ spec:
     triggers:
       http:
         port: 8080
+    tracing: 
+      enabled: true
+      provider:
+        name: "skywalking"
+        oapServer: "skywalking-oap:11800"
+      tags:
+        func: tracing-function
+        layer: faas
+        tag1: value1
+        tag2: value2
+      baggage:
+        key: "key1"
+        value: "value1"    
